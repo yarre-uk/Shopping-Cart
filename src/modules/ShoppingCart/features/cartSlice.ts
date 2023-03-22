@@ -1,24 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { SHOPPING_CART_SLICE_NAME, initialState } from './models';
+import { CartGood, SHOPPING_CART_SLICE_NAME, initialState } from './models';
 
 export const cartSlice = createSlice({
   name: SHOPPING_CART_SLICE_NAME,
   initialState,
   reducers: {
-    incrementFetch: (state) => {
-      state.isLoading = true;
+    addGood: (state, { payload }: PayloadAction<CartGood>) => {
+      const good = state.goods.find((good) => good.id === payload.id);
+
+      if (good) {
+        good.amount += payload.amount;
+        return;
+      }
+
+      state.goods.push(payload);
     },
-    incrementSucces: (state) => {
-      state.isLoading = false;
-      state.count += 1;
+    updateGood: (state, { payload }: PayloadAction<CartGood>) => {
+      const good = state.goods.find((good) => good.id === payload.id);
+
+      if (good) {
+        good.amount = payload.amount;
+        return;
+      }
+
+      throw new Error('Invalid good');
     },
-    decrement: (state) => {
-      state.count -= 1;
+    removeGood: (state, { payload }: PayloadAction<number>) => {
+      state.goods.filter((good) => good.id === payload);
     },
   },
 });
 
-export const { incrementFetch, incrementSucces, decrement } = cartSlice.actions;
+export const { addGood } = cartSlice.actions;
 
 export default cartSlice.reducer;

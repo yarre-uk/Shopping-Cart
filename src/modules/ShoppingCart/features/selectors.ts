@@ -9,4 +9,4 @@ type RootState = {
 const CartSelector = (state: RootState): CartState =>
   state[SHOPPING_CART_SLICE_NAME];
 
-export const selectCount = createSelector(CartSelector, (state) => state.count);
+export const selectCart = createSelector(CartSelector, (state) => state);
