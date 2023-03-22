@@ -1,23 +1,26 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { CartGood, SHOPPING_CART_SLICE_NAME, initialState } from './models';
+import { CartItem, SHOPPING_CART_SLICE_NAME, initialState } from './models';
 
 export const cartSlice = createSlice({
   name: SHOPPING_CART_SLICE_NAME,
   initialState,
   reducers: {
-    addGood: (state, { payload }: PayloadAction<CartGood>) => {
-      const good = state.goods.find((good) => good.id === payload.id);
+    addItem: (
+      state,
+      { payload }: PayloadAction<{ id: number; amount: number }>,
+    ) => {
+      const good = state.items.find((good) => good.id === payload.id);
 
       if (good) {
         good.amount += payload.amount;
         return;
       }
 
-      state.goods.push(payload);
+      state.items.push(payload);
     },
-    updateGood: (state, { payload }: PayloadAction<CartGood>) => {
-      const good = state.goods.find((good) => good.id === payload.id);
+    updateItem: (state, { payload }: PayloadAction<CartItem>) => {
+      const good = state.items.find((good) => good.id === payload.id);
 
       if (good) {
         good.amount = payload.amount;
@@ -26,12 +29,12 @@ export const cartSlice = createSlice({
 
       throw new Error('Invalid good');
     },
-    removeGood: (state, { payload }: PayloadAction<number>) => {
-      state.goods.filter((good) => good.id === payload);
+    removeItem: (state, { payload }: PayloadAction<number>) => {
+      state.items = state.items.filter((good) => good.id !== payload);
     },
   },
 });
 
-export const { addGood } = cartSlice.actions;
+export const { addItem, updateItem, removeItem } = cartSlice.actions;
 
 export default cartSlice.reducer;

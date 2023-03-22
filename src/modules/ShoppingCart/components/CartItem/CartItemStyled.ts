@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GoodItemStyled = styled.div`
+export const CartItemStyled = styled.div`
   padding: 10px;
   margin: 10px;
   border: 1px solid black;
@@ -16,12 +16,9 @@ export const GoodItemStyled = styled.div`
     gap: 10px;
   }
 
-  h4 {
-    margin: 0;
-    display: inline-block;
-  }
-
-  h5 {
+  h4,
+  h5,
+  h6 {
     margin: 0;
     display: inline-block;
   }

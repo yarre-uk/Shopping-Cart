@@ -1,4 +1,4 @@
-export interface CartGood {
+export interface CartItem {
   id: number;
   amount: number;
 }
@@ -6,11 +6,9 @@ export interface CartGood {
 export const SHOPPING_CART_SLICE_NAME = 'shoppingCart';
 
 export interface CartState {
-  isLoading: boolean;
-  goods: CartGood[];
+  items: CartItem[];
 }
 
 export const initialState: CartState = {
-  isLoading: false,
-  goods: [],
+  items: [],
 };
